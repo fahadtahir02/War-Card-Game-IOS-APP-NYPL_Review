@@ -9,6 +9,13 @@ import SwiftUI
 
 
 struct ContentView: View {
+    
+    @State var playerCard = "back"
+    @State var cpuCard = "back"
+    
+    @State var playerScore = 0
+    @State var cpuScore = 0
+    
     var body: some View {
         ZStack{
             Spacer()
@@ -20,15 +27,21 @@ struct ContentView: View {
                 Spacer()
                 HStack{
                     Spacer()
-                    Image("card2")
+                    Image(playerCard)
                     Spacer()
-                    Image("card3")
+                    Image(cpuCard)
                     Spacer()
                     
                 }.padding(.all)
                 Spacer()
                 
-                Image("button")
+                Button {
+                    deal()
+                } label: {
+                    Image("button")
+                }
+
+                
                 Spacer()
                 HStack {
                     Spacer()
@@ -42,9 +55,9 @@ struct ContentView: View {
                 HStack{
                     
                     Spacer()
-                    Text("0")
+                    Text(String(playerScore))
                     Spacer()
-                    Text("0")
+                    Text(String(cpuScore))
                     Spacer()
                     
                 }.padding().font(.title).foregroundColor(.white)
@@ -53,6 +66,27 @@ struct ContentView: View {
             .padding()
         }
         
+        
+    }
+    
+    func deal() {
+        var playerNum = Int.random(in: 2...14)
+        playerCard = "card" + String(playerNum)
+        
+        var cpuNum = Int.random(in: 2...14)
+        cpuCard = "card" + String(cpuNum)
+        
+        if playerNum > cpuNum {
+            playerScore = playerScore + 1
+            print("player greater")
+        }else if cpuNum > playerNum{
+            cpuScore = cpuScore + 1
+            print("cpu greater")
+        }else{
+            playerScore = playerScore
+            cpuScore = cpuScore
+        }
+                
         
     }
 }
